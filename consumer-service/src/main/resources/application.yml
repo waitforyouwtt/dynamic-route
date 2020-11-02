@@ -1,0 +1,26 @@
+server:
+  port: 9700
+spring:
+  profiles:
+    active: dev
+  application:
+    name: consumer-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          # 服务名小写
+          lower-case-service-id: true
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    #自己不是一个客户端
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+

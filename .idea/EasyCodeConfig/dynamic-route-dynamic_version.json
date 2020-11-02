@@ -1,0 +1,27 @@
+{
+  "name" : "DynamicVersion",
+  "originTableName" : "dynamic_version",
+  "comment" : null,
+  "fullColumn" : [ {
+    "name" : "id",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "Long",
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "createTime",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "Date",
+    "custom" : false,
+    "ext" : { }
+  } ],
+  "pkColumn" : null,
+  "otherColumn" : null,
+  "savePackageName" : "com.yidiandian",
+  "savePath" : "./dynamic-route/src/main/java/com/yidiandian",
+  "saveModelName" : "dynamic-route"
+}

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidiandian.dao.GatewayRoutesDao">
+
+    <resultMap id="BaseResultMap" type="com.yidiandian.entity.GatewayRoutes">
+        <!--@Table gateway_routes-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="routeId" column="route_id" jdbcType="VARCHAR"/>
+        <result property="routeUri" column="route_uri" jdbcType="VARCHAR"/>
+        <result property="routeOrder" column="route_order" jdbcType="INTEGER"/>
+        <result property="predicates" column="predicates" jdbcType="VARCHAR"/>
+        <result property="filters" column="filters" jdbcType="VARCHAR"/>
+        <result property="isEbl" column="is_ebl" jdbcType="INTEGER"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, route_id, route_uri, route_order, predicates, filters, is_ebl, is_del, create_time, update_time
+        from route.gateway_routes
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, route_id, route_uri, route_order, predicates, filters, is_ebl, is_del, create_time, update_time
+        from route.gateway_routes
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, route_id, route_uri, route_order, predicates, filters, is_ebl, is_del, create_time, update_time
+        from route.gateway_routes
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="routeId != null and routeId != ''">
+                and route_id = #{routeId}
+            </if>
+            <if test="routeUri != null and routeUri != ''">
+                and route_uri = #{routeUri}
+            </if>
+            <if test="routeOrder != null">
+                and route_order = #{routeOrder}
+            </if>
+            <if test="predicates != null and predicates != ''">
+                and predicates = #{predicates}
+            </if>
+            <if test="filters != null and filters != ''">
+                and filters = #{filters}
+            </if>
+            <if test="isEbl != null">
+                and is_ebl = #{isEbl}
+            </if>
+            <if test="isDel != null">
+                and is_del = #{isDel}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into route.gateway_routes(route_id, route_uri, route_order, predicates, filters, is_ebl, is_del, create_time, update_time)
+        values (#{routeId}, #{routeUri}, #{routeOrder}, #{predicates}, #{filters}, #{isEbl}, #{isDel}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update route.gateway_routes
+        <set>
+            <if test="routeId != null and routeId != ''">
+                route_id = #{routeId},
+            </if>
+            <if test="routeUri != null and routeUri != ''">
+                route_uri = #{routeUri},
+            </if>
+            <if test="routeOrder != null">
+                route_order = #{routeOrder},
+            </if>
+            <if test="predicates != null and predicates != ''">
+                predicates = #{predicates},
+            </if>
+            <if test="filters != null and filters != ''">
+                filters = #{filters},
+            </if>
+            <if test="isEbl != null">
+                is_ebl = #{isEbl},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from route.gateway_routes where id = #{id}
+    </delete>
+
+    <select id="getRoutes" >
+        select
+        id,
+        route_id routeId,
+        route_uri routeUrl,
+        route_order routeOrder,
+        is_ebl isEbl,
+        is_del isDel,
+        create_time createTime,
+        update_time updateTime,
+        predicates,
+        filters
+        from route.gateway_routes
+        where true
+        <if test="isDel != null">
+            and is_del=#{isDel}
+        </if>
+        <if test="isEbl != null">
+            and is_ebl=#{isEbl}
+        </if>
+        order by update_time desc
+    </select>
+
+</mapper>
